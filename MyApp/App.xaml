@@ -1,0 +1,23 @@
+﻿<Application x:Class="MyApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MyApp"
+             Startup="Application_Startup">
+    <Application.Resources>
+        <DrawingImage x:Key="HelloIcon">
+            <DrawingImage.Drawing>
+                <GeometryDrawing Brush="DarkGreen" Geometry="M0,0 L0,10 10,10 10,0 Z"/>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+        <DrawingImage x:Key="FocusIcon">
+            <DrawingImage.Drawing>
+                <GeometryDrawing Brush="DarkOrange" Geometry="M5,0 L10,5 5,10 0,5 Z"/>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+        <DrawingImage x:Key="TabIcon">
+            <DrawingImage.Drawing>
+                <GeometryDrawing Brush="DarkBlue" Geometry="M2,2 L2,8 8,8 8,2 Z"/>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+    </Application.Resources>
+</Application>
