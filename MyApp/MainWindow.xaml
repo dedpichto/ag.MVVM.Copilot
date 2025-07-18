@@ -6,6 +6,7 @@
         xmlns:di="clr-namespace:MyApp.MarkupExtensions"
         xmlns:vm="clr-namespace:MyApp.ViewModels"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:hlp="clr-namespace:MyApp.Helpers"
         xmlns:local="clr-namespace:MyApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
@@ -28,20 +29,44 @@
                 <MenuItem Header="{Binding SayHelloCommand.Text}" 
                           ToolTip="{Binding SayHelloCommand.ToolTip}" 
                           Command="{Binding SayHelloCommand.Command}" 
-                          Icon="{Binding SayHelloCommand.Icon}" />
+                          >
+                    <MenuItem.Icon>
+                        <Image Source="{Binding SayHelloCommand.Icon}" Width="16" Height="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Header="{Binding FocusSecondCommand.Text}" 
                           ToolTip="{Binding FocusSecondCommand.ToolTip}" 
-                          Command="{Binding FocusSecondCommand.Command}" 
-                          Icon="{StaticResource FocusIcon}" />
+                          Command="{Binding FocusSecondCommand.Command}">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding FocusSecondCommand.Icon}" Width="16" Height="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Header="{Binding SwapTabOrderCommand.Text}" 
                           ToolTip="{Binding SwapTabOrderCommand.ToolTip}" 
-                          Command="{Binding SwapTabOrderCommand.Command}" 
-                          Icon="{StaticResource TabIcon}" />
+                          Command="{Binding SwapTabOrderCommand.Command}">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding SwapTabOrderCommand.Icon}" Width="16" Height="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
         </Menu>
         <Grid Margin="20">
-            <StackPanel>
-                <TextBox x:Name="textBox1" 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TreeView Grid.Column="0" Margin="4"
+                      hlp:TreeViewHelper.MonitorSelection="True"
+                        hlp:TreeViewHelper.SelectedItem="{Binding SelectedTreeItem, Mode=TwoWay}"
+                      ItemsSource="{Binding TreeItems}">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                        <TextBlock Text="{Binding Name}" />
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+            <StackPanel Grid.Column="1">
+                <TextBox x:Name="textBox1" Width="400"
                      Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" 
                      Height="30" Margin="0,0,0,10" />
                 <TextBox x:Name="textBox2" 

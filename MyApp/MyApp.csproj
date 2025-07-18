@@ -61,6 +61,7 @@
     <Compile Include="Commands\AppCommands.cs" />
     <Compile Include="Factories\IViewModelFactory.cs" />
     <Compile Include="Factories\MainViewModelFactory.cs" />
+    <Compile Include="Helpers\TreeViewHelper.cs" />
     <Compile Include="MarkupExtensions\DIExtension.cs" />
     <Compile Include="Services\CommandFactory.cs" />
     <Compile Include="Services\FocusService.cs" />

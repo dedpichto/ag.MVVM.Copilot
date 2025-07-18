@@ -20,8 +20,8 @@ namespace MyApp.Commands
         static AppCommands()
         {
             SayHello = new UICommand<string>("Hello", "Say Hello", "Greets the user", (DrawingImage)App.Current.FindResource("HelloIcon"));
-            FocusSecond = new UICommand<object>("FocusSecond", "Focus Second", "Focuses second control");
-            SwapTab = new UICommand<object>("SwapTab", "Swap Tabs", "Swaps tab order");
+            FocusSecond = new UICommand<object>("FocusSecond", "Focus Second", "Focuses second control",(DrawingImage)App.Current.FindResource("FocusIcon"));
+            SwapTab = new UICommand<object>("SwapTab", "Swap Tabs", "Swaps tab order", (DrawingImage)App.Current.FindResource("TabIcon"));
         }
 
         public static void Initialize(MainViewModel context)
