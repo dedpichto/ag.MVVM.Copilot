@@ -14,6 +14,7 @@ namespace MyApp.Services
 
         public event EventHandler Loaded;
         public event EventHandler SourceInitialized;
+        public event EventHandler Closed;
 
         public IntPtr WindowHandle => new WindowInteropHelper(_window).Handle;
 
@@ -23,6 +24,7 @@ namespace MyApp.Services
 
             _window.Loaded += (_, __) => Loaded?.Invoke(this, EventArgs.Empty);
             _window.SourceInitialized += (_, __) => SourceInitialized?.Invoke(this, EventArgs.Empty);
+            _window.Closed += (_, __) => Closed?.Invoke(this, EventArgs.Empty);
         }
     }
 

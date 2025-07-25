@@ -24,7 +24,7 @@ namespace MyApp.Commands
             SwapTab = new UICommand<object>("SwapTab", "Swap Tabs", "Swaps tab order", (DrawingImage)App.Current.FindResource("TabIcon"));
         }
 
-        public static void Initialize(MainViewModel context)
+        public static void Initialize(IViewModel context)
         {
             SayHello.Bind(
                 (cmd) => context.CommandCanExecute(cmd),

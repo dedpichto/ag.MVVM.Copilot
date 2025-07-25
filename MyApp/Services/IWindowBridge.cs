@@ -10,6 +10,7 @@ namespace MyApp.Services
     {
         event EventHandler Loaded;
         event EventHandler SourceInitialized;
+        event EventHandler Closed;
         IntPtr WindowHandle { get; }
     }
 

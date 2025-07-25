@@ -19,7 +19,7 @@ namespace MyApp.Services
         private RelayCommand<T> _relayCommand;
         private Action<T> _execute;
         private Predicate<T> _canExecute;
-
+        private readonly DispatcherTimer _canExecuteTimer;
 
         public UICommand(string name, string text, string toolTip, ImageSource icon = null, KeyGesture hotKey = null, TimeSpan? requeryInterval = null)
         {
@@ -30,17 +30,17 @@ namespace MyApp.Services
             HotKey = hotKey;
 
             var interval = requeryInterval ?? TimeSpan.FromMilliseconds(500);
-            var dispatcherTimer = new DispatcherTimer
+            _canExecuteTimer = new DispatcherTimer
             {
                 Interval = interval
             };
 
-            dispatcherTimer.Tick += (s, e) =>
+            _canExecuteTimer.Tick += (s, e) =>
             {
                 _relayCommand?.RaiseCanExecuteChanged();
             };
 
-            dispatcherTimer.Start();
+            _canExecuteTimer.Start();
 
         }
 
@@ -53,17 +53,17 @@ namespace MyApp.Services
             HotKey = hotKey;
 
             var interval = requeryInterval ?? TimeSpan.FromMilliseconds(500);
-            var dispatcherTimer = new DispatcherTimer
+            _canExecuteTimer = new DispatcherTimer
             {
                 Interval = interval
             };
 
-            dispatcherTimer.Tick += (s, e) =>
+            _canExecuteTimer.Tick += (s, e) =>
             {
                 _relayCommand?.RaiseCanExecuteChanged();
             };
 
-            dispatcherTimer.Start();
+            _canExecuteTimer.Start();
 
         }
 
@@ -77,6 +77,7 @@ namespace MyApp.Services
         public void Executed(object parameter) => _execute?.Invoke((T)parameter);
 
         public bool CanExecute(object parameter) => _canExecute?.Invoke((T)parameter) ?? true;
+        public void Dispose() => _canExecuteTimer?.Stop();
 
         //public void Dispose() => _canExecuteTimer?.Dispose();
     }

@@ -1,9 +1,10 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace MyApp.Services
 {
-    public interface IUICommand
+    public interface IUICommand : IDisposable
     {
         string Name { get; }
         string Text { get; }

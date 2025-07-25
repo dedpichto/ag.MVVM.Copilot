@@ -61,6 +61,7 @@
     <Compile Include="Commands\AppCommands.cs" />
     <Compile Include="Factories\IViewModelFactory.cs" />
     <Compile Include="Factories\MainViewModelFactory.cs" />
+    <Compile Include="Helpers\FocusManager.cs" />
     <Compile Include="Helpers\TreeViewHelper.cs" />
     <Compile Include="MarkupExtensions\DIExtension.cs" />
     <Compile Include="Services\CommandFactory.cs" />
@@ -76,7 +77,9 @@
     <Compile Include="Services\TabOrderService.cs" />
     <Compile Include="Services\UICommand.cs" />
     <Compile Include="Services\WindowBridge.cs" />
+    <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

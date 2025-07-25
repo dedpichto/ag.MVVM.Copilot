@@ -1,4 +1,5 @@
 ﻿using MyApp.Commands;
+using MyApp.Helpers;
 using MyApp.Services;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using System.Windows.Input;
 
 namespace MyApp.ViewModels
 {
-    public class MainViewModel:INotifyPropertyChanged
+    public class MainViewModel : ViewModelBase
 
     {
         //public ICommand WindowLoadedCommand => new RelayCommand(OnLoaded);
@@ -23,13 +24,12 @@ namespace MyApp.ViewModels
         //    // твоя логика загрузки окна
         //}
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
         public ObservableCollection<TreeItem> TreeItems { get; } = new();
+
+        private void OnClosed(object sender, EventArgs e)
+        {
+            ReleaseCommands();
+        }
 
         private void OnLoaded(object sender, EventArgs e)
         {
@@ -74,7 +74,7 @@ namespace MyApp.ViewModels
             {
                 if (_selectedTreeItem == value) return;
                 _selectedTreeItem = value;
-                OnPropertyChanged(); 
+                OnPropertyChanged();
             }
         }
 
@@ -107,6 +107,15 @@ namespace MyApp.ViewModels
             SayHelloCommand = AppCommands.SayHello;
             FocusSecondCommand = AppCommands.FocusSecond;
             SwapTabOrderCommand = AppCommands.SwapTab;
+            var props = GetType().GetProperties().Where(p => p.PropertyType == typeof(IUICommand)).ToArray();
+            foreach (var prop in props)
+            {
+                var command = prop.GetValue(this) as IUICommand;
+                if (command != null)
+                {
+                    Commands.Add(command);
+                }
+            }
         }
 
         public void AttachWindowBridge(IWindowBridge bridge)
@@ -114,6 +123,7 @@ namespace MyApp.ViewModels
             _windowBridge = bridge;
             _windowBridge.Loaded += OnLoaded;
             _windowBridge.SourceInitialized += OnSourceInitialized;
+            _windowBridge.Closed += OnClosed;
         }
 
         //public void SetWindowHandle(IntPtr handle)
@@ -122,7 +132,7 @@ namespace MyApp.ViewModels
         //}
 
 
-        internal bool CommandCanExecute(IUICommand command)
+        public override bool CommandCanExecute(IUICommand command)
         {
             switch (command.Name)
             {
@@ -137,15 +147,23 @@ namespace MyApp.ViewModels
             }
         }
 
-        internal void CommandExecuted(IUICommand command)
+        public override void CommandExecuted(IUICommand command)
         {
             switch (command.Name)
             {
                 case "Hello":
                     MessageBox.Show($"Hello, {UserName}!");
                     break;
+                case "FocusSecond":
+                    FocusCommand.Execute("textBox2");
+                    break;
+                case "SwapTab":
+                    FocusCommand.Execute("textBox1");
+                    break;
             }
         }
+
+        public FocusCommand FocusCommand { get; } = new FocusCommand();
     }
 
     public class TreeItem
