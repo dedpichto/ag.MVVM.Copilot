@@ -7,10 +7,13 @@
         xmlns:vm="clr-namespace:MyApp.ViewModels"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:hlp="clr-namespace:MyApp.Helpers"
+        xmlns:mvh="clr-namespace:Mvvm.Helpers"
         xmlns:local="clr-namespace:MyApp"
         mc:Ignorable="d"
+        
         hlp:FocusManager.FocusCommand="{Binding FocusCommand}"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        >
     <!--<i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding WindowLoadedCommand}" />
@@ -21,30 +24,29 @@
         <vm:MainViewModel />
     </Window.DataContext>
     <Window.InputBindings>
-        <KeyBinding Command="{Binding SayHelloCommand.Command}" 
+        <KeyBinding Command="{Binding SayHelloCommand}" 
                     Key="H" Modifiers="Control" />
     </Window.InputBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Action">
-                <MenuItem Header="{Binding SayHelloCommand.Text}" 
-                          ToolTip="{Binding SayHelloCommand.ToolTip}" 
-                          Command="{Binding SayHelloCommand.Command}" 
+                <MenuItem Header="Hello" 
+                          Command="{Binding SayHelloCommand}" 
                           >
                     <MenuItem.Icon>
                         <Image Source="{Binding SayHelloCommand.Icon}" Width="16" Height="16"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{Binding FocusSecondCommand.Text}" 
-                          ToolTip="{Binding FocusSecondCommand.ToolTip}" 
-                          Command="{Binding FocusSecondCommand.Command}">
+                <MenuItem 
+                          Header="Focus Second TextBox"
+                          Command="{Binding FocusSecondCommand}">
                     <MenuItem.Icon>
                         <Image Source="{Binding FocusSecondCommand.Icon}" Width="16" Height="16"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{Binding SwapTabOrderCommand.Text}" 
-                          ToolTip="{Binding SwapTabOrderCommand.ToolTip}" 
-                          Command="{Binding SwapTabOrderCommand.Command}">
+                <MenuItem 
+                          Header="Swap Tab Order"
+                          Command="{Binding SwapTabOrderCommand}">
                     <MenuItem.Icon>
                         <Image Source="{Binding SwapTabOrderCommand.Icon}" Width="16" Height="16"/>
                     </MenuItem.Icon>
@@ -74,17 +76,16 @@
                 <TextBox x:Name="textBox2" 
                      Height="30" Margin="0,0,0,10" 
                          hlp:FocusManager.FocusTarget="textBox2"/>
-                <Button Content="{Binding SayHelloCommand.Text}" 
-                    ToolTip="{Binding SayHelloCommand.ToolTip}" 
-                    Command="{Binding SayHelloCommand.Command}" 
+                <Button Content="{Binding Command.Text, RelativeSource={RelativeSource Mode=Self}, FallbackValue='Say Hello'}" 
+                    Command="{Binding SayHelloCommand}" 
                     Margin="0,0,0,10" />
-                <Button Content="{Binding FocusSecondCommand.Text}" 
+                <Button Content="Set focus" 
                     ToolTip="{Binding FocusSecondCommand.ToolTip}" 
-                    Command="{Binding FocusSecondCommand.Command}" 
+                    Command="{Binding FocusSecondCommand}" 
                     Margin="0,0,0,10" />
-                <Button Content="{Binding SwapTabOrderCommand.Text}" 
+                <Button Content="Swap tabs}" 
                     ToolTip="{Binding SwapTabOrderCommand.ToolTip}" 
-                    Command="{Binding SwapTabOrderCommand.Command}" />
+                    Command="{Binding SwapTabOrderCommand}" />
             </StackPanel>
         </Grid>
     </DockPanel>

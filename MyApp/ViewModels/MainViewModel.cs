@@ -1,4 +1,4 @@
-﻿using MyApp.Commands;
+﻿using CommandImplementation;
 using MyApp.Helpers;
 using MyApp.Services;
 using System;
@@ -101,12 +101,13 @@ namespace MyApp.ViewModels
             _focus = focus;
             _tab = tab;
 
-            UserName = "World";
+            //UserName = "World";
 
-            AppCommands.Initialize(this);
-            SayHelloCommand = AppCommands.SayHello;
-            FocusSecondCommand = AppCommands.FocusSecond;
-            SwapTabOrderCommand = AppCommands.SwapTab;
+            SayHelloCommand = AllCommands.SayHello();
+            FocusSecondCommand = AllCommands.FocusSecond();
+            SwapTabOrderCommand = AllCommands.SwapTab();
+            AllCommands.Initialize(this);
+
             var props = GetType().GetProperties().Where(p => p.PropertyType == typeof(IUICommand)).ToArray();
             foreach (var prop in props)
             {

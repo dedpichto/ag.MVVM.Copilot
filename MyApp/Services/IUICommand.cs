@@ -2,19 +2,16 @@
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace MyApp.Services
+namespace MyApp.CustomCommands
 {
-    public interface IUICommand : IDisposable
+    public interface IUICommand : IDisposable,ICommand
     {
         string Name { get; }
         string Text { get; }
         string ToolTip { get; }
         ImageSource Icon { get; }
-        ICommand Command { get; }
         KeyGesture HotKey { get; }
         object CommandParameter { get; set; }
 
-        void Executed(object parameter);
-        bool CanExecute(object parameter);
     }
 }

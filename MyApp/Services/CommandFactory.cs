@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommandImplementation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,9 +27,9 @@ namespace MyApp.Services
         
         public IUICommand Create(string key) => key switch
         {
-            "Hello" => new UICommand<string>("hello","Привет", "Поздороваться", _icons.GetIcon("HelloIcon"),new KeyGesture(Key.H, ModifierKeys.Control)),
-            "FocusSecond" => new UICommand<object>("Focus","Фокус на второе", "Перенести фокус"),
-            "SwapTab" => new UICommand<object>("Tab","Поменять TabIndex", "Изменить порядок"),
+            "Hello" => new UICommand("hello","Привет", "Поздороваться", _icons.GetIcon("HelloIcon"),new KeyGesture(Key.H, ModifierKeys.Control)),
+            "FocusSecond" => new UICommand("Focus","Фокус на второе", "Перенести фокус"),
+            "SwapTab" => new UICommand("Tab","Поменять TabIndex", "Изменить порядок"),
             _ => throw new ArgumentException("Неизвестная команда")
         };
 

@@ -3,9 +3,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 
-namespace MyApp.Services
+namespace MyApp.CustomCommands
 {
-    public class UICommand<T> : IUICommand//, IDisposable
+    public class UICommand<T> : IUICommand
     {
         public string Name { get; }
         public string Text { get; }
@@ -14,12 +14,14 @@ namespace MyApp.Services
         public KeyGesture HotKey { get; }
         public object CommandParameter { get; set; }
 
-        public ICommand Command => _relayCommand;
 
         private RelayCommand<T> _relayCommand;
+        private Action<T> _executed;
         private Action<T> _execute;
         private Predicate<T> _canExecute;
         private readonly DispatcherTimer _canExecuteTimer;
+
+        public event EventHandler CanExecuteChanged;
 
         public UICommand(string name, string text, string toolTip, ImageSource icon = null, KeyGesture hotKey = null, TimeSpan? requeryInterval = null)
         {
@@ -67,19 +69,18 @@ namespace MyApp.Services
 
         }
 
-        public void Bind(Func<IUICommand, bool> canExecute, Action<IUICommand> execute)
+        public void Bind(Func<IUICommand, bool> canExecute, Action<IUICommand> executed)
         {
             _canExecute = param => canExecute(this);
-            _execute = param => execute(this);
-            _relayCommand = new RelayCommand<T>(_execute, _canExecute);
+            _executed = param => executed(this);
+            _relayCommand = new RelayCommand<T>(_executed, _canExecute);
         }
 
-        public void Executed(object parameter) => _execute?.Invoke((T)parameter);
 
         public bool CanExecute(object parameter) => _canExecute?.Invoke((T)parameter) ?? true;
         public void Dispose() => _canExecuteTimer?.Stop();
+        public void Execute(object parameter) => _executed?.Invoke((T)parameter);
 
-        //public void Dispose() => _canExecuteTimer?.Dispose();
     }
 
 }

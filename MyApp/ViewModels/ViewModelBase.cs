@@ -1,4 +1,4 @@
-﻿using MyApp.Services;
+﻿using CommandImplementation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,6 +21,7 @@ namespace MyApp.ViewModels
 
         public abstract bool CommandCanExecute(IUICommand command);
         public abstract void CommandExecuted(IUICommand command);
+
         public void ReleaseCommands()
         {
             foreach (var command in Commands)
@@ -28,5 +29,6 @@ namespace MyApp.ViewModels
                 command.Dispose();
             }
         }
+
     }
 }

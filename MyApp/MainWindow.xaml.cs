@@ -36,7 +36,7 @@ namespace MyApp
         public MainWindow()
         {
             InitializeComponent();
-            AppCommands.RegisterBindings(this);
+            //AppCommands.RegisterBindings(this);
 
             //#if DEBUG
             //            // Режим дизайнера — можно вернуть заглушку или ничего не делать
@@ -50,7 +50,7 @@ namespace MyApp
             //var factory = App.ServiceProvider.GetService<IViewModelFactory<MainViewModel>>();
             var bridge = new WindowBridgeService(this);
             var factory = App.ServiceProvider.GetService<MainViewModelFactory>();
-            DataContext = factory?.Create();
+            DataContext = factory.Create();
             (DataContext as MainViewModel)?.AttachWindowBridge(bridge);
         }
 
@@ -62,7 +62,6 @@ namespace MyApp
         //    (DataContext as MainViewModel)?.SetWindowHandle(handle);
         //}
 
-        
 
     }
 }

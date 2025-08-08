@@ -58,13 +58,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\AllCommands.cs" />
     <Compile Include="Commands\AppCommands.cs" />
     <Compile Include="Factories\IViewModelFactory.cs" />
     <Compile Include="Factories\MainViewModelFactory.cs" />
     <Compile Include="Helpers\FocusManager.cs" />
     <Compile Include="Helpers\TreeViewHelper.cs" />
     <Compile Include="MarkupExtensions\DIExtension.cs" />
+    <Compile Include="Services\BasicViewModelWithDataGrid.cs" />
+    <Compile Include="Services\Command.cs" />
     <Compile Include="Services\CommandFactory.cs" />
+    <Compile Include="Services\DataGridBehavior.cs" />
     <Compile Include="Services\FocusService.cs" />
     <Compile Include="Services\ICommandFactory.cs" />
     <Compile Include="Services\IconProvider.cs" />
